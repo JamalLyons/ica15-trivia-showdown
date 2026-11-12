@@ -75,36 +75,6 @@ That build POSTs JSON:
 
 Success is shown only after an HTTP 2xx response (`Score N of M was saved to the leaderboard.`). A timeout, a connection failure, or any other status leaves the button enabled and shows a failure snackbar. The score is not described as saved.
 
-## Screenshots
-
-Taken November 12, 2026 from the Flutter web release build, in a 390×960 viewport. The question, answer, and score images are one unmodified Open Trivia Database round. The browser sent `GET https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple` and got HTTP 200. Loading was captured while that response was still in flight. The error screen is a separate load whose connection to `opentdb.com` was refused.
-
-| Image | What it shows |
-| --- | --- |
-| [Loading](docs/screenshots/01-loading.png) | Progress indicator while the five-question request is in flight. No question is shown yet. |
-| [Error](docs/screenshots/02-error.png) | A refused connection. The message is readable, the round is not created, and **Try again** is available. |
-| [Question](docs/screenshots/03-question.png) | Live question 1 of 5, score 0, shuffled choices 10, 9, 7, 8. **Continue** stays disabled. |
-| [Correct](docs/screenshots/04-correct.png) | Question 2. Soviet Union is green, with a check icon. Score becomes 1. |
-| [Incorrect](docs/screenshots/05-incorrect.png) | Question 1. 8 is red. 7, the correct answer, is green. The score stays 0. |
-| [Final score](docs/screenshots/06-results-sync.png) | 3 out of 5, the simulation card and payload, the sync button disabled, and the snackbar that says the score was not sent. |
-| [Decoded text](docs/screenshots/07-live-round.png) | Question 3 of the same live round. The API sent `Papa John&#039;s`; the screen shows Papa John's. Score is still 1, and the choices are neutral again. |
-
-![Loading](docs/screenshots/01-loading.png)
-
-![Could not load the round](docs/screenshots/02-error.png)
-
-![Live question 1 of 5](docs/screenshots/03-question.png)
-
-![Correct answer in green](docs/screenshots/04-correct.png)
-
-![Incorrect answer in red and the correct answer in green](docs/screenshots/05-incorrect.png)
-
-![Final score and the simulation snackbar](docs/screenshots/06-results-sync.png)
-
-![Question 3 with the apostrophe decoded](docs/screenshots/07-live-round.png)
-
-Expected and observed: loading shows the indicator and no question; a refused connection shows the error copy instead of an empty quiz; the live prompt and four shuffled options appear as Question 1 of 5; a correct answer adds one point and turns green; a wrong answer turns red, reveals the green correct option, and does not add a point; question 3 shows the apostrophe decoded from `&#039;`, with the score carried forward and the answer state cleared; the finished round shows 3 out of 5 with replay and the simulation snackbar. The simulation text says the score was not sent. No backend request was sent.
-
 ## Project layout
 
 - `lib/services/trivia_api.dart` — GET, timeout, HTTP status, `response_code`, and JSON parsing
